@@ -1,7 +1,7 @@
-
+const { Dog } = require('../db')
 const { API_KEY } = process.env
 
-const url = "https://api.thedogapi.com/v1/breeds/search?q="
+const url = "https://api.thedogapi.com/v1/breeds"
 async function getDogByQuery (name) {
     try {
         const getDogBD = await Dog.findAll(
@@ -11,7 +11,7 @@ async function getDogByQuery (name) {
                 }
             }
         )
-        const response =  await fetch(`${url}${name}`,{
+        const response =  await fetch(`${url}?${name}=`,{
             method: "GET",
             withCredentials: true,
             headers: {
@@ -20,7 +20,11 @@ async function getDogByQuery (name) {
             }
         })
         const data = await response.json();
-        return data
+        if(!name){
+            return data
+        }
+        const filter = data.filter(objeto => objeto.breed_group === name)
+        return filter
     } catch (error) {
         throw new Error(error)
     }
