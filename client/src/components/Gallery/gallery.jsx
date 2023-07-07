@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ export const Gallery = () => {
         console.log(dogs)
     }, [dogs]);
     return (
-        <div>
+        <div id="gallery">
             {
                 dogs?.map(element => (
                     <div>

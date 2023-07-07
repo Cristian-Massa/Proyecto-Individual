@@ -1,6 +1,7 @@
 const initialState = {
     fav: [],
-    showedImg: []
+    showedImg: [],
+    browser: ''
 };
 
 export const reducer = (state = initialState, action) =>{
@@ -10,6 +11,11 @@ export const reducer = (state = initialState, action) =>{
             return {
                 ...state,
                 showedImg: action.payload
+            }
+        case "BROWSER":
+            return{
+                ...state,
+                browser: action.payload
             }
         default:
             return state
