@@ -1,17 +1,14 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { changePag } from "../../redux/actions/actions";
+import { browse } from "../../redux/actions/actions";
 export function Nav() {
     const race = useRef('')
     const dispatch = useDispatch();
     function searchDog() {
-        axios.get(`http://localhost:3001/dog/name?breed_group=${race.current.value}`)
-            .then(res =>res.data)
-            .then(data => {
-                console.log(data)
-                dispatch(changePag(data))
-            })
+        const first = race.current?.value.charAt(0).toUpperCase();
+        const rest = race.current?.value.substring(1).toLowerCase();
+        dispatch(browse(first+rest))
     };
     return (
         <nav>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { changePag } from "../../redux/actions/actions";
 export function Pagination() {
     const dispatch = useDispatch()
+    const browser = useSelector(state => state.browser)
     const [currentPage, setCurrentPage] = useState(1);
     const [data, setData] = useState([]);
     const division = 8;
@@ -13,13 +14,13 @@ export function Pagination() {
     const currentItems = data.slice(startIndex, endIndex)
 
     useEffect(()=>{
-        axios.get(`http://localhost:3001/dog/name?breed_group=`)
+        axios.get(`http://localhost:3001/dog/name?breed_group=${browser}`)
         .then(res =>res.data)
         .then(data => {
             setData(data)
         })
-      }, []);
 
+      }, [browser]);
     useEffect(()=>{
         dispatch(changePag(currentItems))
     }, [currentItems])
