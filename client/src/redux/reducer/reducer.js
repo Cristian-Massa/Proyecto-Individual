@@ -1,7 +1,8 @@
 const initialState = {
     fav: [],
     showedImg: [],
-    browser: ''
+    browser: '',
+    order: 'asc'
 };
 
 export const reducer = (state = initialState, action) =>{
@@ -16,6 +17,11 @@ export const reducer = (state = initialState, action) =>{
             return{
                 ...state,
                 browser: action.payload
+            }
+        case "CHANGEORDER":
+            return{
+                ...state,
+                order: action.payload
             }
         default:
             return state
