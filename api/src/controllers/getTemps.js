@@ -5,7 +5,7 @@ const url = 'https://api.thedogapi.com/v1/breeds/'
 function getTemps(req, res) {
     async function getting() {
         try {
-
+            
             const response = await fetch(url, {
                 method: "GET",
                 withCredentials: true,
@@ -25,15 +25,14 @@ function getTemps(req, res) {
             const temps = new Set(allTemps.split(','))
             const arr = Array.from(temps)
             const getInfo = await Temp.findAll()
-            console.log(arr);
             if (getInfo.length == 0) {
                 for (let index = 0; index < arr.length; index++) {
-                    const save = await Temp.create({
+                    await Temp.create({
                         name: arr[index]
                     })
                 }
-                return await Temp.findAll()
             }
+            return Temp.findAll()
 
         } catch (error) {
             throw new Error(error.message);

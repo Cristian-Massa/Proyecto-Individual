@@ -38,8 +38,8 @@ router.get('/dogs/:id', async (req, res) =>{
 
 // Ejemplo para luego http://localhost:3001/dog/name?race=Toy
 router.get('/dog/name', async (req, res) =>{
-    const {breed_group} = req.query
-    const response = await getDogByQuery(breed_group)
+    const {name} = req.query
+    const response = await getDogByQuery(name)
     try {
         res.status(200).json(response)
     } catch (error) {

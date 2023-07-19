@@ -14,6 +14,7 @@ async function getDogs() {
         })
         const data = await response.json();
         const races = new Set()
+
         data.forEach(dog => {
             if (dog.breed_group != undefined && dog.breed_group != '') {
                 races.add(dog.breed_group)
@@ -24,6 +25,6 @@ async function getDogs() {
         throw new Error(error.message);
     }
 }
-
+getDogs()
 
 module.exports = getDogs

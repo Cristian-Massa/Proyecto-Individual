@@ -2,7 +2,8 @@ const initialState = {
     fav: [],
     showedImg: [],
     browser: '',
-    order: 'asc'
+    order: 'asc',
+    filterTemps: ''
 };
 
 export const reducer = (state = initialState, action) =>{
@@ -22,6 +23,11 @@ export const reducer = (state = initialState, action) =>{
             return{
                 ...state,
                 order: action.payload
+            }
+        case "FILTERTEMPS":
+            return{
+                ...state,
+                filterTemps: action.payload
             }
         default:
             return state

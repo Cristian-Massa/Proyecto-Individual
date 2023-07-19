@@ -23,7 +23,7 @@ async function getDogByQuery (name) {
         if(!name){
             return data
         }
-        const filter = data.filter(objeto => objeto.breed_group === name)
+        const filter = data.filter(objeto => objeto.name === name)
         return filter
     } catch (error) {
         throw new Error(error)
