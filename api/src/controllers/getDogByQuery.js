@@ -1,16 +1,17 @@
 const { Dog } = require('../db')
 const { API_KEY } = process.env
-
+const { where, Op } = require('sequelize')
 const url = "https://api.thedogapi.com/v1/breeds"
 async function getDogByQuery (name) {
     try {
-        const getDogBD = await Dog.findAll(
-            {
-                where: {
-                    name: name
+            const getDogBD = await Dog.findAll(
+                {
+                    where: {
+                        name: name
+                    }
                 }
-            }
-        )
+            )
+        
         const response =  await fetch(`${url}?${name}=`,{
             method: "GET",
             withCredentials: true,
@@ -21,10 +22,13 @@ async function getDogByQuery (name) {
         })
         const data = await response.json();
         if(!name){
-            return data
+            const getDogBD = await Dog.findAll()
+            const allData = {data, getDogBD}
+            return allData
         }
-        const filter = data.filter(objeto => objeto.name === name)
-        return filter
+        const filtered = data.filter(objeto => objeto.name === name)
+        const allData = {filtered, getDogBD};
+        return allData;
     } catch (error) {
         throw new Error(error)
     }
