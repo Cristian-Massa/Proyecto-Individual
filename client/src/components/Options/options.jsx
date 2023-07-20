@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import options from "../../utils/svg/option.svg"
 import { useDispatch } from "react-redux";
-import { changeOrder, filterTemps } from "../../redux/actions/actions";
+import { changeOrder, filterTemps, bdOrApi } from "../../redux/actions/actions";
 import axios from "axios";
 
 
@@ -19,6 +19,12 @@ export const Options = () => {
         const value = e.target.value
         console.log(value)
         dispatch(filterTemps(value))
+    };
+
+    const fontSelector = (e) => {
+        const value = e.target.value
+        console.log(value)
+        dispatch(bdOrApi(value))
     };
 
     useEffect(() => {
@@ -54,10 +60,9 @@ export const Options = () => {
                                     )
                                 })}
                             </select>
-                            <select>
-                                <option value="bd">base de datos</option>
+                            <select onChange={fontSelector}>
                                 <option value="api">api</option>
-                                <option value="all">todo</option>
+                                <option value="bd">base de datos</option>
                             </select>
                         </div>
                     </div>

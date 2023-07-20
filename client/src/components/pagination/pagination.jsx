@@ -9,6 +9,7 @@ export function Pagination() {
   const dispatch = useDispatch()
   const browser = useSelector(state => state.browser)
   const temps = useSelector(state => state.filterTemps)
+  const bdOrApi = useSelector(state => state.bdOrApi)
   const order = useSelector(state => state.order)
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState([]);
@@ -17,59 +18,93 @@ export function Pagination() {
   const endIndex = startIndex + division;
   const currentItems = data.slice(startIndex, endIndex)
 
-  useEffect(() => {
-    axios.get(`http://localhost:3001/dog/name?name=${browser}`)
-      .then(res => res.data)
-      .then(data => {
-        if (order === 'asc') {
-          if (temps.length > 0) {
-            const filter = data.filter(element => {
-              if (element.temperament?.includes(temps)) {
-                return element
+    useEffect(() => {
+      axios.get(`http://localhost:3001/dogs/name?name=${browser}`)
+        .then(res => {
+          if(bdOrApi === 'api'){
+            const data = res.data.data
+            console.log(data)
+            setData([])
+            if (order === 'asc') {
+              if (temps.length > 0) {
+                const filter = data.filter(element => {
+                  if (element.temperament?.includes(temps)) {
+                    return element
+                  }
+                })
+                setData(filter)
+              }else{
+                console.log(temps)
+              setData(data)
               }
-            })
-            setData(filter)
-          }else{
-            console.log(temps)
-          setData(data)
-          }
-        } else {
-          if (temps.length > 0) {
-            const filter = data.filter(element => {
-              if (element.temperament?.includes(temps)) {
-                return element
+            } else {
+              if (temps.length > 0) {
+                const filter = data.filter(element => {
+                  if (element.temperament?.includes(temps)) {
+                    return element
+                  }
+                })
+                setData(filter.reverse())
+              }else{
+                setData(data.reverse())
               }
-            })
-            setData(filter.reverse())
-          }else{
-            setData(data.reverse())
+            }
           }
-        }
-      })
-    setCurrentPage(1)
-  }, [browser, order, temps]);
-  useEffect(() => {
-    dispatch(changePag(currentItems))
-  }, [currentItems])
-  const handlePreviousPage = () => {
-    scrollToTop()
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+          if(bdOrApi === 'bd'){
+            const db = res.data.getDogBD
+            console.log(db)
+            setData([])
+            if (order === 'asc') {
+              if (temps.length > 0) {
+                const filter = db.filter(element => {
+                  if (element.temperament?.includes(temps)) {
+                    return element
+                  }
+                })
+                setData(filter)
+              }else{
+                console.log(temps)
+              setData(db)
+              }
+            } else {
+              if (temps.length > 0) {
+                const filter = db.filter(element => {
+                  if (element.temperament?.includes(temps)) {
+                    return element
+                  }
+                })
+                setData(filter.reverse())
+              }else{
+                setData(db.reverse())
+              }
+            }
+          }
+        })
+      setCurrentPage(1)
+      console.log(bdOrApi)
+    }, [browser, order, temps, bdOrApi]);
+    useEffect(() => {
+      dispatch(changePag(currentItems))
+    }, [currentItems])
+    const handlePreviousPage = () => {
+      scrollToTop()
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
 
-  const handleNextPage = () => {
-    scrollToTop()
-    const totalPages = Math.ceil(data.length / division);
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+    const handleNextPage = () => {
+      scrollToTop()
+      const totalPages = Math.ceil(data.length / division);
+      if (currentPage < totalPages) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
 
-  return (
-    <div>
-      <button onClick={handlePreviousPage}>Previous</button>
-      <button onClick={handleNextPage}>Next</button>
-    </div>
-  );
-};
+    return (
+      <div>
+        <button onClick={handlePreviousPage}>Previous</button>
+        <button onClick={handleNextPage}>Next</button>
+      </div>
+    );
+  };

@@ -10,13 +10,8 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false,
     },
-    idBD: {
-      type: DataTypes.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      allowNull: false,
-    },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSON,
       allowNull: false,
     },
     name: {

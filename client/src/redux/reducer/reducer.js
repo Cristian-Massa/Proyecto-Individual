@@ -3,7 +3,8 @@ const initialState = {
     showedImg: [],
     browser: '',
     order: 'asc',
-    filterTemps: ''
+    filterTemps: '',
+    bdOrApi: 'api'
 };
 
 export const reducer = (state = initialState, action) =>{
@@ -29,6 +30,11 @@ export const reducer = (state = initialState, action) =>{
                 ...state,
                 filterTemps: action.payload
             }
+            case "BDORAPI":
+                return{
+                    ...state,
+                    bdOrApi: action.payload
+                }
         default:
             return state
     };

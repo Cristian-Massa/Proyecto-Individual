@@ -25,9 +25,10 @@ router.post('/dogs', postDog)
 
 router.get('/temperaments', getTemps)
 
-router.get('/dogs/:id', async (req, res) =>{
-    const {id} = req.params
-    const response = await getDogById(id)
+// Ejemplo para luego http://localhost:3001/dog/name?race=Toy
+router.get('/dogs/name', async (req, res) =>{
+    const {name} = req.query
+    const response = await getDogByQuery(name)
     try {
         res.status(200).json(response)
     } catch (error) {
@@ -36,10 +37,9 @@ router.get('/dogs/:id', async (req, res) =>{
 })
 
 
-// Ejemplo para luego http://localhost:3001/dog/name?race=Toy
-router.get('/dog/name', async (req, res) =>{
-    const {name} = req.query
-    const response = await getDogByQuery(name)
+router.get('/dogs/:id', async (req, res) =>{
+    const {id} = req.params
+    const response = await getDogById(id)
     try {
         res.status(200).json(response)
     } catch (error) {
