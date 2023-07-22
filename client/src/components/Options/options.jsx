@@ -18,13 +18,11 @@ export const Options = () => {
 
     const tempSelector = (e) => {
         const value = e.target.value
-        console.log(value)
         dispatch(filterTemps(value))
     };
 
     const fontSelector = (e) => {
         const value = e.target.value
-        console.log(value)
         dispatch(bdOrApi(value))
     };
 

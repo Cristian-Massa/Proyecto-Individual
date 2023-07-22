@@ -22,7 +22,6 @@ export const Detail = (props) => {
             .then(res => {
                 if (bdOrApi === 'api') {
                     const data = res.data.filter[0]
-                    console.log(data)
                     setDog({
                         id: data.id,
                         image: data.image.url,
@@ -33,10 +32,10 @@ export const Detail = (props) => {
                         life_span: data.life_span,
                     });
                 } else {
-                    const data = res.data.getDogBD
+                    const data = res.data.getDogBD[0]
                     setDog({
                         id: data.id,
-                        image: data.image,
+                        image: data.image.url,
                         name: data.name,
                         height: data.height,
                         weight: data.weight,
@@ -46,9 +45,6 @@ export const Detail = (props) => {
                 }
             })
     }, [id])
-    useEffect(() => {
-        console.log(dog)
-    }, [dog])
     return (
         <DetailedDog>
             <button className="defaultButton" onClick={() => { navigate('/gallery') }}>X</button>

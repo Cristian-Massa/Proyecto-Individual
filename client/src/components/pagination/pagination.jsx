@@ -34,7 +34,6 @@ export function Pagination() {
                 })
                 setData(filter)
               }else{
-                console.log(temps)
               setData(data)
               }
             } else {
@@ -52,7 +51,6 @@ export function Pagination() {
           }
           if(bdOrApi === 'bd'){
             const db = res.data.getDogBD
-            console.log(db)
             setData([])
             if (order === 'asc') {
               if (temps.length > 0) {
@@ -63,7 +61,6 @@ export function Pagination() {
                 })
                 setData(filter)
               }else{
-                console.log(temps)
               setData(db)
               }
             } else {
@@ -82,7 +79,6 @@ export function Pagination() {
         })
 
       setCurrentPage(1)
-      console.log(bdOrApi)
     }, [browser, order, temps, bdOrApi]);
     useEffect(() => {
       dispatch(changePag(currentItems))

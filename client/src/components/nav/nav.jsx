@@ -18,11 +18,9 @@ export function Nav() {
                 const first = element[0].toUpperCase();
                 return first + element?.slice(1);
               } else {
-                console.log(element)
                 return element;
               }
             })
-            console.log(convertion.join(' '))
             dispatch(browse(convertion.join(' ')))
             return
         }
