@@ -11,7 +11,7 @@ async function getDogById (id) {
                 }
             }
         )
-        const response =  await fetch(url + id,{
+        const response =  await fetch(url,{
             method: "GET",
             withCredentials: true,
             headers: {
@@ -20,7 +20,8 @@ async function getDogById (id) {
             }
         })
         const data = await response.json();
-        const allData = {getDogBD, data}
+        const filter = data.filter(element => element.id == id)
+        const allData = {getDogBD, filter}
         return allData
     } catch (error) {
         throw new Error(error)

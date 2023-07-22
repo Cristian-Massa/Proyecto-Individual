@@ -3,6 +3,7 @@ import { styled, createGlobalStyle } from "styled-components";
 
 
 export const GlobalStyles = createGlobalStyle`
+    //((((((((((((((((General))))))))))))))))
     *{
         padding: 0;
         margin: 0;
@@ -14,6 +15,9 @@ export const GlobalStyles = createGlobalStyle`
         background-image: url('https://sb.ecobnb.net/app/uploads/sites/3/2022/04/copertina-1.jpg');
         background-repeat: no-repeat, repeat;
         background-size: cover;
+    }
+    p{
+        color:white;
     }
     //((((((((((((((((Galeria))))))))))))))))
     #gallery{
