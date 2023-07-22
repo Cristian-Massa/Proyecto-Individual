@@ -11,9 +11,11 @@ export const Gallery = () => {
                 dogs?.map(element => (
                     <Card>
                         <h2>{element.name}</h2>
-                        <img src={`${element.image.url}`} />
+                        <Img src={`${element.image.url}`} />
                         <p>{element.temperament}</p>
+                        <p>Kg:</p>
                         <p>{`${element.weight.metric}`}</p>
+                        <p>Lb:</p>
                         <p>{`${element.weight.imperial}`}</p>
                     </Card>
                 ))
@@ -24,7 +26,19 @@ export const Gallery = () => {
 };
 
 const Card = styled.div`
-    height: 100%;
-    border-bottom: 1px solid black;
+background: rgba(150, 150, 150, 0.7) ;
+border: solid black 2px;
+border-radius: 1rem;
+text-align: center;
+width: 200px;
+height: auto;
+max-height: 400px;
+padding: 10px 0 10px 0;
+margin:10px;
+transition: transform 1s;
+align-items: center;
 `
 
+const Img = styled.img`
+ width: 150px;
+`

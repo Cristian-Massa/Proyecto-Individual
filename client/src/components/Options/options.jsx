@@ -3,6 +3,7 @@ import options from "../../utils/svg/option.svg"
 import { useDispatch } from "react-redux";
 import { changeOrder, filterTemps, bdOrApi } from "../../redux/actions/actions";
 import axios from "axios";
+import { styled } from "styled-components";
 
 
 export const Options = () => {
@@ -38,20 +39,18 @@ export const Options = () => {
     return (
         <div>
             <div>
-                <button onClick={() => { setOpenMenu(!openMenu) }}>
+                <button onClick={() => { setOpenMenu(!openMenu) }} className="invisible">
                     <img src={options} width='20px' alt="options" />
                 </button>
             </div>
             {
                 openMenu ?
-                    <div>
-                        <div>
-                            <select name="order" onChange={handleChange}>
+                    <OptionMenu>
+
+                        <select name="order" onChange={handleChange}>
                                 <option value="asc">ascente</option>
                                 <option value="des">descendente</option>
                             </select>
-                        </div>
-                        <div>
                             <select onChange={tempSelector}>
                                 <option value=''>selecciona la personalidad</option>
                                 {temps?.map((element, key) => {
@@ -64,11 +63,20 @@ export const Options = () => {
                                 <option value="api">api</option>
                                 <option value="bd">base de datos</option>
                             </select>
-                        </div>
-                    </div>
+                       
+                    </OptionMenu>
                     : null
             }
 
         </div>
     )
 };
+
+const OptionMenu = styled.div`
+    position: fixed;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    right: 30px;
+    gap: 30px;
+    top: 30px;
+`

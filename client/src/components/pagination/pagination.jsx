@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { changePag } from "../../redux/actions/actions";
 import scrollToTop from "../../functions/scrollTop";
-
+import { styled } from "styled-components";
 export function Pagination() {
   const dispatch = useDispatch()
   const browser = useSelector(state => state.browser)
@@ -22,8 +22,8 @@ export function Pagination() {
       axios.get(`http://localhost:3001/dogs/name?name=${browser}`)
         .then(res => {
           if(bdOrApi === 'api'){
-            const data = res.data.data
-            console.log(data)
+            let data
+            browser.length > 0 ? data = res.data.filtered: data = res.data.data;
             setData([])
             if (order === 'asc') {
               if (temps.length > 0) {
@@ -80,6 +80,7 @@ export function Pagination() {
             }
           }
         })
+
       setCurrentPage(1)
       console.log(bdOrApi)
     }, [browser, order, temps, bdOrApi]);
@@ -102,9 +103,15 @@ export function Pagination() {
     };
 
     return (
-      <div>
-        <button onClick={handlePreviousPage}>Previous</button>
-        <button onClick={handleNextPage}>Next</button>
-      </div>
+      <Center>
+        <button className='defaultButton'onClick={handlePreviousPage}>Previous</button>
+        <button className='defaultButton'onClick={handleNextPage}>Next</button>
+      </Center>
     );
   };
+
+  const Center = styled.div`
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+  `
