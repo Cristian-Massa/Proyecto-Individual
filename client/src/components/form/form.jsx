@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-
+import validation from "../../functions/validations";
 export const Form = () => {
     const navigate = useNavigate()
     const [temps, setTemps] = useState([])
@@ -18,7 +18,7 @@ export const Form = () => {
     })
     const [lifeSpan, setLifeSpan] = useState('')
     const [formTemps, setFormTemps] = useState('')
-
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         axios.get('http://localhost:3001/temperaments')
@@ -55,8 +55,8 @@ export const Form = () => {
         text.innerHTML = formTemps
     }, [formTemps])
     useEffect(()=>{
-        console.log(height)
-    }, [height])
+        console.log(errors)
+    }, [errors])
     function handleOptions(e) {
         const { value, name } = e.target
         switch (name) {
@@ -69,34 +69,28 @@ export const Form = () => {
             case "heightMetric":
                 const valueMinMetric = document.getElementById('min-mt').value
                 const valueMaxMetric = document.getElementById('max-mt').value
+                const valueMinImperial = valueMinMetric * 2.54
+                const valueMaxImperial = valueMaxMetric * 2.54
                 setHeight({
                     ...height,
-                    metric: `${valueMinMetric} - ${valueMaxMetric}`
-                })
-                break;
-            case "heightImperial":
-                const valueMinImperial = document.getElementById('min-in').value
-                const valueMaxImperial = document.getElementById('max-in').value
-                setHeight({
-                    ...height,
+                    metric: `${valueMinMetric} - ${valueMaxMetric}`,
                     imperial: `${valueMinImperial} - ${valueMaxImperial}`
                 })
                 break;
+
             case "weightMetric":
                 const valueMinWMetric = document.getElementById('Wmin-mt').value
                 const valueMaxWMetric = document.getElementById('Wmax-mt').value
+                const valueMinWImperial = valueMinWMetric * 2.54
+                const valueMaxWImperial = valueMaxWMetric * 2.54
                 setWeight({
                     ...weight,
-                    metric: `${valueMinWMetric} - ${valueMaxWMetric}`
-                })
-                break;
-            case "weightImperial":
-                const valueMinWImperial = document.getElementById('Wmin-im').value
-                const valueMaxWImperial = document.getElementById('Wmax-im').value
-                setWeight({
-                    ...weight,
+                    metric: `${valueMinWMetric} - ${valueMaxWMetric}`,
                     imperial: `${valueMinWImperial} - ${valueMaxWImperial}`
                 })
+                
+                break;
+
                 break;
             case "lifeSpan":
                 const ageMin = document.getElementById('min_age').value
@@ -123,6 +117,7 @@ export const Form = () => {
             temperaments: formTemps
         }
         console.log(dog)
+        setErrors(validation(dog))
     }
     return (
         <Content>
@@ -141,18 +136,12 @@ export const Form = () => {
                     <label>Metric:</label>
                     <br />
                     <label>Minimo:</label>
-                    <input type="number" name='heightMetric' id="min-mt" onChange={handleOptions} />
+                    <input type="text" name='heightMetric' id="min-mt" onChange={handleOptions} />
 
                     <label>Maximo:</label>
-                    <input type="number" name='heightMetric' id="max-mt" onChange={handleOptions} />
+                    <input type="text" name='heightMetric' id="max-mt" onChange={handleOptions} />
                     <br />
-                    <label htmlFor="">Imperial:</label>
-                    <br />
-                    <label>Minimo:</label>
-                    <input type="number" name='heightImperial' id="min-in" onChange={handleOptions} />
 
-                    <label>Maximo:</label>
-                    <input type="number" name='heightImperial' id="max-in" onChange={handleOptions} />
                 </div>
 
                 <label htmlFor="">Peso:</label>
@@ -161,18 +150,10 @@ export const Form = () => {
                     <label>Metric:</label>
                     <br />
                     <label>Minimo:</label>
-                    <input type="number" name='weightMetric' id="Wmin-mt" onChange={handleOptions} />
+                    <input type="text" name='weightMetric' id="Wmin-mt" onChange={handleOptions} />
 
                     <label>Maximo:</label>
-                    <input type="number" name='weightMetric' id="Wmax-mt" onChange={handleOptions} />
-                    <br />
-                    <label htmlFor="">Imperial:</label>
-                    <br />
-                    <label>Minimo:</label>
-                    <input type="number" name='weightImperial' id="Wmin-im" onChange={handleOptions} />
-
-                    <label>Maximo:</label>
-                    <input type="number" name='weightImperial' id="Wmax-im" onChange={handleOptions} />
+                    <input type="text" name='weightMetric' id="Wmax-mt" onChange={handleOptions} />
                 </div>
 
                 <label htmlFor="">Años de vida:</label>
