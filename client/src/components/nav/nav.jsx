@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { changePag, browse } from "../../redux/actions/actions";
 import  styled  from "styled-components";
+import { useNavigate } from "react-router-dom";
 export function Nav() {
+    const navigate = useNavigate()
     const race = useRef('')
     const dispatch = useDispatch();
     function searchDog() {
@@ -33,6 +35,7 @@ export function Nav() {
             <InputNav type="text" name="search" id="" placeholder="Busca un perro"
                 ref={race} />
             <NavButton onClick={searchDog} >Buscar</NavButton>
+            <NavButton onClick={()=>{navigate('/CreateDog')}}>Crear Perro</NavButton>
         </nav>
     );
 };

@@ -15,7 +15,7 @@ export const Landing = () => {
                     </div>
                     <div>
                         <button className="defaultButton" onClick={()=>{ navigate('/Gallery')}}>Galeria</button>
-                        <button className="defaultButton">Crear un perro</button>
+                        <button className="defaultButton" onClick={()=>{ navigate('/CreateDog')}}>Crear un perro</button>
                     </div>
                 </LeftDiv>
                 <RightDiv>
@@ -49,6 +49,7 @@ const LeftDiv = styled.div`
     justify-content: center;
     padding-top: 30px;
     text-align: center;
+    z-index: 9999;
 `;
 
 const RightDiv = styled.div`

@@ -19,6 +19,15 @@ export const GlobalStyles = createGlobalStyle`
     p{
         color:white;
     }
+    form{
+        color:white;
+    }
+    input{
+        max-width: 300px;
+    }
+    select{
+        max-width: 200px;
+    }
     //((((((((((((((((Galeria))))))))))))))))
     #gallery{
         display: grid;
@@ -27,7 +36,6 @@ export const GlobalStyles = createGlobalStyle`
         height: 85vh;
         overflow-y: scroll;
     }
-
 
     // (((((((((((((((Landing)))))))))))))))
     // Separador
