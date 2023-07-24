@@ -7,9 +7,8 @@ function validation (obj) {
     const splitHeight = height?.metric.split(' ')
     const splitWeight = weight?.metric.split(' ')
     const splitAge = life_span?.split(' ')
-    console.log(splitWeight[2].length)
     if(!name || !image || splitHeight[0].length === 0 || splitHeight[2].length === 0 || Number(splitWeight[0].length) === 0 || Number(splitWeight[2].length) === 0 || !weight || !life_span || !temperaments){
-        return "falta informacion"
+        errors.push("falta informacion")
     }else{
         if(!pattern.test(image.url)){
             errors.push("imagen invalida")

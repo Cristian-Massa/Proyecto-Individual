@@ -19,7 +19,7 @@ export const Form = () => {
     const [lifeSpan, setLifeSpan] = useState('')
     const [formTemps, setFormTemps] = useState('')
     const [errors, setErrors] = useState([])
-
+    const [send, setSend] = useState(false)
     useEffect(() => {
         axios.get('http://localhost:3001/temperaments')
             .then(res => {
@@ -34,9 +34,9 @@ export const Form = () => {
             selected.push(e.target.value)
             const arrayTexted = selected.join(', ')
 
-            if(formTemps.length === 0){
+            if (formTemps.length === 0) {
                 setFormTemps(`${arrayTexted}`)
-            }else{
+            } else {
                 setFormTemps(`${formTemps}, ${arrayTexted}`)
             }
         }
@@ -50,13 +50,11 @@ export const Form = () => {
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const text = document.getElementById('text')
         text.innerHTML = formTemps
     }, [formTemps])
-    useEffect(()=>{
-        console.log(errors)
-    }, [errors])
+
     function handleOptions(e) {
         const { value, name } = e.target
         switch (name) {
@@ -88,7 +86,7 @@ export const Form = () => {
                     metric: `${valueMinWMetric} - ${valueMaxWMetric}`,
                     imperial: `${valueMinWImperial} - ${valueMaxWImperial}`
                 })
-                
+
                 break;
 
                 break;
@@ -98,10 +96,9 @@ export const Form = () => {
                 setLifeSpan(`${ageMin} - ${ageMax} years`)
                 break;
         }
-        console.log(name)
     }
 
-    function handleSubmit (e) {
+    function handleSubmit(e) {
         e.preventDefault()
         const dog = {
             name: name,
@@ -116,13 +113,51 @@ export const Form = () => {
             life_span: lifeSpan,
             temperaments: formTemps
         }
-        console.log(dog)
+        const error = validation(dog)
         setErrors(validation(dog))
+        console.log(dog)
+        if (error.length === 0) {
+            axios.post('http://localhost:3001/dogs', dog)
+                .then(res => res.data)
+                .then(data => setSend(true))
+                .catch(err => console.error('no se pudo mandar el perro'))
+        }
     }
     return (
         <Content>
+            {send ?
+
+
+
+                <DoneLabel>
+                    <button className="invisible" onClick={() => { setSend(false) }}>x</button>
+                    <p>¡¡Perro enviado exitosamente!!</p>
+                </DoneLabel>
+
+
+
+                :
+                null
+            }
+            {errors?.length > 0 ?
+
+                <ErrorLabel>
+                    <button className="invisible" onClick={() => { setErrors([]) }}>x</button>
+                    {errors.map((element) => {
+                        return (
+                            <p>{element}</p>
+                        )
+                    })}
+                </ErrorLabel>
+
+
+
+                :
+                null
+            }
+
             <button className="invisible" onClick={() => { navigate('/Gallery') }}>X</button>
-            <FormDiv  onSubmit={handleSubmit}>
+            <FormDiv onSubmit={handleSubmit}>
 
                 <label htmlFor="">Nombre:</label>
                 <input type="text" name="name" onChange={handleOptions} />
@@ -159,9 +194,9 @@ export const Form = () => {
                 <label htmlFor="">Años de vida:</label>
                 <div>
                     <label>Minimo:</label>
-                    <input type="number" name='lifeSpan' id="min_age" onChange={handleOptions}/>
+                    <input type="number" name='lifeSpan' id="min_age" onChange={handleOptions} />
                     <label>Maximo:</label>
-                    <input type="number" name='lifeSpan' id="max_age" onChange={handleOptions}/>
+                    <input type="number" name='lifeSpan' id="max_age" onChange={handleOptions} />
                 </div>
 
 
@@ -216,3 +251,31 @@ const Text = styled.p`
     height: 90px;
     max-height: 100px;
 `;
+
+const ErrorLabel = styled.div`
+  position: absolute;
+  background-color: rgba(255,0,0, 0.9);
+  width: 500px;
+  height: auto;
+  position: absolute;
+  border-radius: 1rem;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  padding: 20px;
+  z-index: 99999;
+`
+
+const DoneLabel = styled.div`
+  position: absolute;
+  background-color: rgba(0,255,0, 0.9);
+  width: 500px;
+  height: auto;
+  position: absolute;
+  border-radius: 1rem;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  padding: 20px;
+  z-index: 99999;
+`
