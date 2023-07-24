@@ -33,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
         display: grid;
         grid-template-columns: auto auto auto auto;
         width: 100%;
-        height: 85vh;
+        height: 75vh;
         overflow-y: scroll;
     }
 
@@ -78,5 +78,23 @@ export const GlobalStyles = createGlobalStyle`
     .invisible{
         background-color: transparent;
         border: none;
+        font-weight: bolder;
+        height: 50px;
+    }
+    .invisible:hover{
+        color: white;
+    }
+    .borrar{
+        width: 150px;  
+        justify-self: center;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        transition: background-color color 0.1s;
+        &:hover{
+            color: black;
+            background-color: white;
+        }
     }
 `

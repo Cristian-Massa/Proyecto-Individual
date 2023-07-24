@@ -31,7 +31,7 @@ const HeaderStyled = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center
-  gap: 30px;
+  gap: 10px;
   background-color: rgba(41, 41, 41, 0.7)
 `
 

@@ -79,8 +79,8 @@ export const Form = () => {
             case "weightMetric":
                 const valueMinWMetric = document.getElementById('Wmin-mt').value
                 const valueMaxWMetric = document.getElementById('Wmax-mt').value
-                const valueMinWImperial = valueMinWMetric * 2.54
-                const valueMaxWImperial = valueMaxWMetric * 2.54
+                const valueMinWImperial = valueMinWMetric * 2.205
+                const valueMaxWImperial = valueMaxWMetric * 2.205
                 setWeight({
                     ...weight,
                     metric: `${valueMinWMetric} - ${valueMaxWMetric}`,
@@ -204,9 +204,9 @@ export const Form = () => {
                 <label htmlFor="">Temperamentos:</label>
                 <Text id="text" name="formtemps"></Text>
 
-                <button onClick={handleChange} value='borrar'> borrar</button>
+                <button className="borrar" onClick={handleChange} value='borrar'> borrar</button>
                 <select onChange={(handleChange)} name="temperaments">
-                    <option value='no usar'>
+                    <option  value='no usar'>
                         Selecciona los temperamentos
                     </option>
                     {temps.map((element, key) => {

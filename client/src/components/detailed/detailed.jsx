@@ -81,5 +81,5 @@ const Content = styled.div`
     text-align: center;
 `
 const ImgDetailed = styled.img`
-    max-height: 500px;
+    max-height: 400px;
 `
