@@ -25,6 +25,6 @@ async function getDogs() {
         throw new Error(error.message);
     }
 }
-getDogs()
+
 
 module.exports = getDogs
