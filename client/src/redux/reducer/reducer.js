@@ -4,7 +4,7 @@ const initialState = {
     browser: '',
     order: 'asc',
     filterTemps: '',
-    bdOrApi: 'api'
+    bdOrApi: 'api',
 };
 
 export const reducer = (state = initialState, action) =>{

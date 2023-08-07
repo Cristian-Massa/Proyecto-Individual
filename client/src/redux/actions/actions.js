@@ -4,6 +4,7 @@ const CHANGEORDER = 'CHANGEORDER';
 const FILTERTEMPS = 'FILTERTEMPS';
 const BDORAPI = 'BDORAPI';
 
+
 export const changePag = (data) =>{
     return{
         type: CHANGEPAGINATION,
